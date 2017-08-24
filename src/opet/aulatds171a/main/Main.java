@@ -11,6 +11,9 @@ import opet.aulatds171a.utilitario.Leitor;
 public class Main {
 	
 	private static final int LIMITE_PESSOAS = 2000000;
+	private static final int OPCAO_CADASTRAR = 1;
+	private static final int OPCAO_LISTAR = 2;
+	private static final int OPCAO_SAIR = 9;
 	/**
 	 * 
 	 * @param args
@@ -22,22 +25,16 @@ public class Main {
 		
 		ArrayList<Pessoa> listaPessoas = new ArrayList<Pessoa>();
 		int opcao_menu = -1;
-		while(opcao_menu != 9) {
+		while(opcao_menu != OPCAO_SAIR) {
 			System.out.println("1) Cadastrar");
 			System.out.println("2) Listar");
 			System.out.println("9) Sair");
 			opcao_menu = Leitor.readInt("Digite a opção desejada:");
 			
-			if(opcao_menu == 1) {
-				listaPessoas.add(
-						new Pessoa(
-								Leitor.readString("Informe o nome:"),
-								Leitor.readString("Informe o sexo:"),
-								new Date(Leitor.readString("Informe a data de nascimento:"))
-						)
-				);
+			if(opcao_menu == OPCAO_CADASTRAR) {
+				listaPessoas.add( montarPessoa() );
 			}
-			else if(opcao_menu == 2) {
+			else if(opcao_menu == OPCAO_LISTAR) {
 				// imprime cabeçalho
 				preencherComZeros("Nome", 30);
 				preencherComZeros("Sexo", 10);
@@ -56,7 +53,7 @@ public class Main {
 	}
 	
 	/**
-	 * 
+	 * Função para criação de um objeto pessoa
 	 */
 	static Pessoa montarPessoa()
 	{
