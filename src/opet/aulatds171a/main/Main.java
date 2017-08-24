@@ -21,7 +21,7 @@ public class Main {
 	 * @param args
 	 * @throws ParseException 
 	 */
-	public static void main(String[] args) throws ParseException {
+	public static void main(String[] args)  {
 		
 		ArrayList<Pessoa> listaPessoas = new ArrayList<Pessoa>();
 		int opcao_menu = -1;
@@ -57,14 +57,22 @@ public class Main {
 	 * Função para criação de um objeto pessoa
 	 * @throws ParseException 
 	 */
-	static Pessoa montarPessoa() throws ParseException
+	static Pessoa montarPessoa() 
 	{
 		String nome = Leitor.readString("Entre com o nome:");
 		String sexo = Leitor.readString("Entre com o sexo:");
 		//String dataNascimento = Leitor.readString("Entre com oa data de nascimento:");
 		
+		Date dtNascimento = null;
+		
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("d/M/y");
-		Date dtNascimento = sdf.parse(Leitor.readString("Entre com oa data de nascimento:"));
+		try {
+			dtNascimento = sdf.parse(Leitor.readString("Entre com oa data de nascimento:"));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 			
 		Pessoa novaPessoa = new Pessoa(nome, sexo,
 				dtNascimento );
