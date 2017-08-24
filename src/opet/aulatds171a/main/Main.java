@@ -1,5 +1,7 @@
 package opet.aulatds171a.main;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
@@ -7,25 +9,25 @@ import java.util.Vector;
 
 import opet.aulatds171a.pessoa.Pessoa;
 import opet.aulatds171a.utilitario.Leitor;
+import sun.java2d.pipe.SpanShapeRenderer.Simple;
 
 public class Main {
 	
-	private static final int LIMITE_PESSOAS = 2000000;
 	private static final int OPCAO_CADASTRAR = 1;
 	private static final int OPCAO_LISTAR = 2;
 	private static final int OPCAO_SAIR = 9;
 	/**
 	 * 
 	 * @param args
+	 * @throws ParseException 
 	 */
-	public static void main(String[] args) {
-		
-		// Informa aqui quantos objetos Pessoa deseja criar
-		
+	public static void main(String[] args) throws ParseException {
 		
 		ArrayList<Pessoa> listaPessoas = new ArrayList<Pessoa>();
 		int opcao_menu = -1;
+		
 		while(opcao_menu != OPCAO_SAIR) {
+		
 			System.out.println("1) Cadastrar");
 			System.out.println("2) Listar");
 			System.out.println("9) Sair");
@@ -42,27 +44,30 @@ public class Main {
 				for (Pessoa pessoa : listaPessoas) {
 					System.out.print(preencherComZeros(pessoa.getNome(), 30) );
 					System.out.print(preencherComZeros(pessoa.getSexo(), 10) );
-					System.out.print(pessoa.getDataNascimento());
+					System.out.print( pessoa.getDataNascimento());
 					System.out.println("");
 				}
 			}
 		}
 		
 		System.out.println("Até mais!");
-		
 	}
 	
 	/**
 	 * Função para criação de um objeto pessoa
+	 * @throws ParseException 
 	 */
-	static Pessoa montarPessoa()
+	static Pessoa montarPessoa() throws ParseException
 	{
 		String nome = Leitor.readString("Entre com o nome:");
 		String sexo = Leitor.readString("Entre com o sexo:");
-		String dataNascimento = Leitor.readString("Entre com oa data de nascimento:");
+		//String dataNascimento = Leitor.readString("Entre com oa data de nascimento:");
 		
+		SimpleDateFormat sdf = new SimpleDateFormat("d/M/y");
+		Date dtNascimento = sdf.parse(Leitor.readString("Entre com oa data de nascimento:"));
+			
 		Pessoa novaPessoa = new Pessoa(nome, sexo,
-				new Date(dataNascimento) );
+				dtNascimento );
 		
 		return novaPessoa;
 	}
